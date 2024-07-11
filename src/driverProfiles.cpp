@@ -17,12 +17,13 @@ if(numberOfProfiles >= 10) pf10 = true;
 bool ButtonA() {
     return master.get_digital(pros::E_CONTROLLER_DIGITAL_A);
 }
+std::function<void()> pf1AButton;
 void setAButton(int pfNumber,std::function<void()> InputButton,bool newPress,std::function<void()> function) {
-if(pfNumber == 1){ std::function<void()> pf1AButton = if(InputButton()) {function();} }
+if(pfNumber == 1){ pf1AButton = if(InputButton()) {function();} }
 }
 
 void pf1Settings(bool pf1active) {
 if(pf1active) {
-
+pf1AButton();
 }
 }
