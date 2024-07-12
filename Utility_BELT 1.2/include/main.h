@@ -38,6 +38,7 @@
 
 #include "globals.hpp"
 #include "driverProfiles.hpp"
+#include "dynamicGPS.hpp"
 //#include "okapi/api.hpp"
 
 /**

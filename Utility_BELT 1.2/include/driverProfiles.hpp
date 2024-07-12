@@ -1,9 +1,10 @@
 #include "main.h"
-#include "pros/misc.h"
-#include <functional>
 #include <optional>
+#include <functional>
 
-pros::Controller master(pros::E_CONTROLLER_MASTER);
+class ControllerProfile
+{
+public:
 
 /*!
  * @var     ProfileActive
@@ -76,25 +77,6 @@ bool R1Toggle;
 */
 bool R2Toggle;
 
-
-//Initiallize
-void DriverProfilesInit(){
-ProfileActive = false;
-ShiftPressed = false;
-AToggle = false;
-BToggle = false;
-XToggle = false;
-YToggle = false;
-UpToggle = false;
-DownToggle = false;
-LeftToggle = false;
-RightToggle = false;
-L1Toggle = false;
-L2Toggle = false;
-R1Toggle = false;
-R2Toggle = false;
-}
-
 //opControl
 
 //Outside of While
@@ -105,9 +87,7 @@ R2Toggle = false;
  * @discussion  Place this inside of opControl, but outside of the while loop.
  * @param       shiftButton    The Drive Style. This is designed around EZ & LEMLib, but as long as you set your style using a void funtion it should work.
 */
-void SetDriveStyle(std::function<void()> driveStyle) {
-if(ProfileActive) driveStyle();
-}
+void SetDriveStyle(std::function<void()> driveStyle);
 
 //Inside of While
 //Shift Button
@@ -117,12 +97,7 @@ if(ProfileActive) driveStyle();
  * @discussion  Place this inside of opControl, and inside of the while loop.
  * @param       shiftButton    The button input to use shift mode, is to be writen as master.get_digital(pros::E_CONTROLLER_DIGITAL_"Button").
 */
-void SetShift(std::int32_t shiftButton){
-if(ProfileActive){
-if(shiftButton) {ShiftPressed = true;} //Activates Shift if pressed.
-else {ShiftPressed = false;} //Deactivates Shift if not currently pressed.
-}
-}
+void SetShift(std::int32_t shiftButton);
 
 // Singular Input
 /*!
@@ -134,16 +109,7 @@ else {ShiftPressed = false;} //Deactivates Shift if not currently pressed.
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void AButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) function();}
-}
-}
+void AButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    BButton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -153,16 +119,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void BButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) function();}
-}
-}
+void BButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    Xutton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -172,16 +129,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void XButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) function();}
-}
-}
+void XButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    YButton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -191,16 +139,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void YButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) function();}
-}
-}
+void YButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    UpButton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -210,16 +149,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void UpButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) function();}
-}
-}
+void UpButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    DownButton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -229,16 +159,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void DownButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) function();}
-}
-}
+void DownButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    LeftButton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -248,16 +169,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void LeftButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) function();}
-}
-}
+void LeftButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    RightButton.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -267,16 +179,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void RightButton(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) function();}
-}
-}
+void RightButton(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    L1Button.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -286,16 +189,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void L1Button(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) function();}
-}
-}
+void L1Button(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    L2Button.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -305,16 +199,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void L2Button(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) function();}
-}
-}
+void L2Button(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    R1Button.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -324,16 +209,7 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void R1Button(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) function();}
-}
-}
+void R1Button(bool shift,bool newPress,std::function<void()> function);
 /*!
  * @function    R2Button.
  * @discussion  This function tells the code what to run when this button is pressed for this profile.
@@ -343,19 +219,9 @@ if(ProfileActive){
  * @param       newPress A bool for wether or not the funtion should be ran only of a new button press.
  * @param       function The code that runs when this button is pressed.
 */
-void R2Button(bool shift,bool newPress,std::function<void()> function) {
-if(ProfileActive){
-    if(!shift){
-    if(!newPress){ if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) function();}
-    else if(newPress){ if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) function();}
-    }
-    else if(shift && !newPress){if(ShiftPressed && master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) function();}
-    else if(shift && newPress){if(ShiftPressed && master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) function();}
-}
-}
+void R2Button(bool shift,bool newPress,std::function<void()> function);
 
 //Dual Input(Toggle)
-
 /*!
  * @function    AButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -365,16 +231,7 @@ if(ProfileActive){
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void AButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A)) {
-if(AToggle){AToggle = false; offFunction();} else if(!AToggle){AToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && AToggle){AToggle = false; offFunction();} else if(ShiftPressed && !AToggle){AToggle = true; onFunction();}}
-}
-}
+void AButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    BButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -384,16 +241,7 @@ else if(shift){if(ShiftPressed && AToggle){AToggle = false; offFunction();} else
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void BButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) {
-if(BToggle){BToggle = false; offFunction();} else if(!BToggle){BToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && BToggle){BToggle = false; offFunction();} else if(ShiftPressed && !BToggle){BToggle = true; onFunction();}}
-}
-}
+void BButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    XButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -403,16 +251,7 @@ else if(shift){if(ShiftPressed && BToggle){BToggle = false; offFunction();} else
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void XButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift) {
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
-if(XToggle){XToggle = false; offFunction();} else if(!XToggle){XToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && XToggle){XToggle = false; offFunction();} else if(ShiftPressed && !XToggle){XToggle = true; onFunction();}}
-}
-}
+void XButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    YButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -422,16 +261,7 @@ else if(shift){if(ShiftPressed && XToggle){XToggle = false; offFunction();} else
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void YButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) {
-if(YToggle){YToggle = false; offFunction();} else if(!YToggle){YToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && YToggle){YToggle = false; offFunction();} else if(ShiftPressed && !YToggle){YToggle = true; onFunction();}}
-}
-}
+void YButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    UpButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -441,16 +271,7 @@ else if(shift){if(ShiftPressed && YToggle){YToggle = false; offFunction();} else
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void UpButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_UP)) {
-if(UpToggle){UpToggle = false; offFunction();} else if(!UpToggle){UpToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && UpToggle){UpToggle = false; offFunction();} else if(ShiftPressed && !UpToggle){UpToggle = true; onFunction();}}
-}
-}
+void UpButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    DownButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -460,16 +281,7 @@ else if(shift){if(ShiftPressed && UpToggle){UpToggle = false; offFunction();} el
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void DownButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)) {
-if(DownToggle){DownToggle = false; offFunction();} else if(!DownToggle){DownToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && DownToggle){DownToggle = false; offFunction();} else if(ShiftPressed && !DownToggle){DownToggle = true; onFunction();}}
-}
-}
+void DownButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    LeftButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -479,16 +291,7 @@ else if(shift){if(ShiftPressed && DownToggle){DownToggle = false; offFunction();
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void LeftButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT)) {
-if(LeftToggle){LeftToggle = false; offFunction();} else if(!LeftToggle){LeftToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && LeftToggle){LeftToggle = false; offFunction();} else if(ShiftPressed && !LeftToggle){LeftToggle = true; onFunction();}}
-}
-}
+void LeftButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    RightButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -498,16 +301,7 @@ else if(shift){if(ShiftPressed && LeftToggle){LeftToggle = false; offFunction();
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void RightButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)) {
-if(RightToggle){RightToggle = false; offFunction();} else if(!RightToggle){RightToggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && RightToggle){RightToggle = false; offFunction();} else if(ShiftPressed && !RightToggle){RightToggle = true; onFunction();}}
-}
-}
+void RightButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    L1ButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -517,16 +311,7 @@ else if(shift){if(ShiftPressed && RightToggle){RightToggle = false; offFunction(
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void L1ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1)) {
-if(L1Toggle){L1Toggle = false; offFunction();} else if(!L1Toggle){L1Toggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && L1Toggle){L1Toggle = false; offFunction();} else if(ShiftPressed && !L1Toggle){L1Toggle = true; onFunction();}}
-}
-}
+void L1ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    L2ButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -536,16 +321,7 @@ else if(shift){if(ShiftPressed && L1Toggle){L1Toggle = false; offFunction();} el
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void L2ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2)) {
-if(L2Toggle){L2Toggle = false; offFunction();} else if(!L2Toggle){L2Toggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && L2Toggle){L2Toggle = false; offFunction();} else if(ShiftPressed && !L2Toggle){L2Toggle = true; onFunction();}}
-}
-}
+void L2ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    R1ButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -555,16 +331,7 @@ else if(shift){if(ShiftPressed && L2Toggle){L2Toggle = false; offFunction();} el
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void R1ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
-if(R1Toggle){R1Toggle = false; offFunction();} else if(!R1Toggle){R1Toggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && R1Toggle){R1Toggle = false; offFunction();} else if(ShiftPressed && !R1Toggle){R1Toggle = true; onFunction();}}
-}
-}
+void R1ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 /*!
  * @function    R2ButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -574,27 +341,7 @@ else if(shift){if(ShiftPressed && R1Toggle){R1Toggle = false; offFunction();} el
  * @param       onFunction The code that runs when this button is pressed and the toggle is false.
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
-void R2ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction) {
-if(ProfileActive){
-if(!shift){
-if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) {
-if(R2Toggle){R2Toggle = false; offFunction();} else if(!R2Toggle){R2Toggle = true; onFunction();}
-}
-}
-else if(shift){if(ShiftPressed && R2Toggle){R2Toggle = false; offFunction();} else if(ShiftPressed && !R2Toggle){R2Toggle = true; onFunction();}}
-}
-}
-
+void R2ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
 //Multi-Input
-void MultiInput(bool shift, std::function<void()> function, std::optional<std::int32_t> Button1 = std::nullopt, std::optional<std::int32_t> Button2 = std::nullopt, std::optional<std::int32_t> Button3 = std::nullopt){
-    if(ProfileActive){if(!shift){{if(Button3.has_value()){
-    if(Button1 && Button2 && Button3){function();}
-    } else if(!Button3.has_value()) {if(Button1 && Button2){function();}}
-    }
-    } else if(shift){{if(Button3.has_value()){
-    if(Button1 && Button2 && Button3 && ShiftPressed){function();}
-    } else if(!Button3.has_value()) {if(Button1 && Button2 && ShiftPressed){function();}}
-    }
-}
-}
-}
+void MultiInput(bool shift, std::function<void()> function, std::optional<std::int32_t> Button1 = std::nullopt, std::optional<std::int32_t> Button2 = std::nullopt, std::optional<std::int32_t> Button3 = std::nullopt);
+};
