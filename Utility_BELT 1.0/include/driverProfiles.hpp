@@ -1,11 +1,86 @@
 #include "main.h"
+#include <cstddef>
+#include <optional>
+#include <functional>
 
 class ControllerProfile
 {
 public:
-bool ProfileActive;
-bool ShiftPressed;
 
+/*!
+ * @var     ProfileActive
+ * @param ProfileActive A bool value for wether or not a profile is currently set to be used.
+*/
+bool ProfileActive;
+/*!
+ * @var     ShiftPressed
+ * @param ShiftPressed A bool value for wether or not the shift button is being pressed.
+*/
+bool ShiftPressed;
+/*!
+ * @var   AToggle
+ * @param AToggle A bool value for wether or not the toggle is true or false.
+*/
+bool AToggle;
+/*!
+ * @var   BToggle
+ * @param BToggle A bool value for wether or not the toggle is true or false.
+*/
+bool BToggle;
+/*!
+ * @var   XToggle
+ * @param XToggle A bool value for wether or not the toggle is true or false.
+*/
+bool XToggle;
+/*!
+ * @var   YToggle
+ * @param YToggle A bool value for wether or not the toggle is true or false.
+*/
+bool YToggle;
+/*!
+ * @var   UpToggle
+ * @param UpToggle A bool value for wether or not the toggle is true or false.
+*/
+bool UpToggle;
+/*!
+ * @var   DownToggle
+ * @param DownToggle A bool value for wether or not the toggle is true or false.
+*/
+bool DownToggle;
+/*!
+ * @var   LeftToggle
+ * @param LeftToggle A bool value for wether or not the toggle is true or false.
+*/
+bool LeftToggle;
+/*!
+ * @var   RightToggle
+ * @param RightToggle A bool value for wether or not the toggle is true or false.
+*/
+bool RightToggle;
+/*!
+ * @var   L1Toggle
+ * @param L1Toggle A bool value for wether or not the toggle is true or false.
+*/
+bool L1Toggle;
+/*!
+ * @var   L2Toggle
+ * @param L2Toggle A bool value for wether or not the toggle is true or false.
+*/
+bool L2Toggle;
+/*!
+ * @var   R1Toggle
+ * @param R1Toggle A bool value for wether or not the toggle is true or false.
+*/
+bool R1Toggle;
+/*!
+ * @var   R2Toggle
+ * @param R2Toggle A bool value for wether or not the toggle is true or false.
+*/
+bool R2Toggle;
+
+
+//Initiallize
+void DriverProfilesInit();
 
 //opControl
 
@@ -152,19 +227,6 @@ void R1Button(bool shift,bool newPress,std::function<void()> function);
 void R2Button(bool shift,bool newPress,std::function<void()> function);
 
 //Dual Input(Toggle)
-bool AToggle;
-bool BToggle;
-bool XToggle;
-bool YToggle;
-bool UpToggle;
-bool DownToggle;
-bool LeftToggle;
-bool RightToggle;
-bool L1Toggle;
-bool L2Toggle;
-bool R1Toggle;
-bool R2Toggle;
-
 /*!
  * @function    AButtonToggle.
  * @discussion  This function tells the code what to run on a toggle when this button is pressed for this profile.
@@ -285,7 +347,6 @@ void R1ButtonToggle(bool shift,std::function<void()> onFunction,std::function<vo
  * @param       offFunction The code that runs when this button is pressed and the toggle is true.
 */
 void R2ButtonToggle(bool shift,std::function<void()> onFunction,std::function<void()> offFunction);
-
 //Multi-Input
-
+void MultiInput(bool shift, std::function<void()> function, std::optional<std::int32_t> Button1 = std::nullopt, std::optional<std::int32_t> Button2 = std::nullopt, std::optional<std::int32_t> Button3 = std::nullopt);
 };
