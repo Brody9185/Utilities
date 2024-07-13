@@ -34,7 +34,10 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-set0(1,2); // Set the new 0,0 from the bottom left corner.(e.g. leaving this as (0,0) makes the bottom left the orgin).
+setStrip1(0,0); // Set the new 0,0 from the bottom left corner. Use this when placing the bot against the 1st strip.
+//setStrip2(0,0); // Set the new 0,0 from the bottom left corner. Use this when placing the bot against the 2nd strip.
+//setStrip3(0,0); // Set the new 0,0 from the bottom left corner. Use this when placing the bot against the 3rd strip.
+//setStrip4(0,0); // Set the new 0,0 from the bottom left corner. Use this when placing the bot against the 4th strip.
 //Lemchassis.setPose(GPSX,GPSY,GPSH); // Set the Lemlib starting position based on the GPS(note: you can also use this during the code to recalibrate your position).
 }
 
